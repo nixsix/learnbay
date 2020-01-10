@@ -7,12 +7,16 @@ public class MinimumSumSubArray {
 		int[] inArr = {10, 4, 3, 5 , 6, 1, 2 , 1};
 		int k = 3;
 		int[] minSum = minSumSubArray(inArr, k);
+
 		for(int i = 0;i<k;i++) {
 			System.out.print(minSum[i] + ",");
 		}
 	}
 
 	private static int[] minSumSubArray(int[] inArr, int size) {
+		if(size> inArr.length) {
+			return inArr;
+		}
 		int tempMinSum= inArr[0] + inArr[1] + inArr[2];
 		int startIndexMinSum = 0; 
 		for(int i = 0,k=inArr.length;i<k;i++){
@@ -27,9 +31,9 @@ public class MinimumSumSubArray {
 			}
 		}
 		int [] outArr = new int[size];
-		outArr[0] = inArr[startIndexMinSum];
-		outArr[1] = inArr[startIndexMinSum+1];
-		outArr[2] = inArr[startIndexMinSum+2];
+		for(int i=0;i<size;i++) {
+			outArr[i] = inArr[startIndexMinSum+i];
+		}
 		return outArr;
 	}
 
