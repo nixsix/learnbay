@@ -5,7 +5,6 @@ public class CountSetBits {
 	public static void main(String[] args) {
 		
 		System.out.println(countSetBitsByRightShift(33));
-		//System.out.println(9&10);
 	}
 
 	private static int countSetBits(int n) {
