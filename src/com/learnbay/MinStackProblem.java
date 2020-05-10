@@ -77,4 +77,7 @@ class MinStack{
 		return top + 1;
 	}
 
+	public int getMin() {
+		return NEWMIN;
+	}
 }
