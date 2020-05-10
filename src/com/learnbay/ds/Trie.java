@@ -74,13 +74,13 @@ public class Trie {
 		return search(this.root, word);
 	}
 
-	private boolean search(Node root, String word) {
+	private boolean search(Node node, String word) {
 		if(word.length()==0 ) {
-				return root.isTerminal ;
+				return node.isTerminal ;
 		}
-		if(root.children.get(word.charAt(0))==null) {
+		if(node.children.get(word.charAt(0))==null) {
 			return false;
 		}
-		return search(root.children.get(word.charAt(0)), word.substring(1));
+		return search(node.children.get(word.charAt(0)), word.substring(1));
 	}
 }
