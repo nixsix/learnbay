@@ -12,9 +12,14 @@ public class TrieClient {
 		trie.addWord("sea");
 		trie.addWord("see");
 		trie.addWord("seen");
+		trie.addWord("sin");
+		trie.addWord("sink");
 		trie.addWord("nikhil");
 		trie.display();
-		System.out.println(trie.search("seem"));
+		System.out.println(trie.search("nikhil"));
+		trie.delete("sin");
+		trie.delete("sink");
+		trie.display();
 	}
 
 }
