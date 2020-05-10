@@ -14,6 +14,7 @@ public class TrieClient {
 		trie.addWord("seen");
 		trie.addWord("nikhil");
 		trie.display();
+		System.out.println(trie.search("seem"));
 	}
 
 }

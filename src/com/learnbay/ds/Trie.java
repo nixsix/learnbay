@@ -69,4 +69,18 @@ public class Trie {
 			this.display(entry.getValue(), osf + node.data);
 		}
 	}
+	
+	public boolean search(String word) {
+		return search(this.root, word);
+	}
+
+	private boolean search(Node root, String word) {
+		if(word.length()==0 ) {
+				return root.isTerminal ;
+		}
+		if(root.children.get(word.charAt(0))==null) {
+			return false;
+		}
+		return search(root.children.get(word.charAt(0)), word.substring(1));
+	}
 }
