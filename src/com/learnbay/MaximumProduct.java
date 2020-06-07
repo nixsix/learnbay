@@ -1,11 +1,24 @@
 package com.learnbay;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Formatter;
+import java.util.UUID;
+
 public class MaximumProduct {
 
 	public static void main(String[] args) {
 		int [] inArr = {-10, -3, 5, 6, -2};
 		int maxVal = maxProduct(inArr);
-		System.out.println(maxVal);
+		//System.out.println(maxVal);
+		
+		for(int i=0; i< 300;i++) {
+			String x = UUID.randomUUID().toString().substring(0,7) +":"+ (new Long(System.nanoTime())).toString().substring(7) ;
+			System.out.println(x);
+		
+		}
+		
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("E MMM dd HH:mm:ss Z yyyy");
 	}
 
 	private static int maxProduct(int[] inArr) {
