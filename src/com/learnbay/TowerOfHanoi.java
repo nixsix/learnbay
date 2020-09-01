@@ -1,42 +1,32 @@
 package com.learnbay;
 
-import com.learnbay.ds.Stack;
+import java.util.Scanner;
 
-public class TowerOfHanoi {
-
-	public static void main(String[] args)throws Exception {
-		Stack originalStack = new Stack(4);
-		originalStack.push(4);originalStack.push(7);originalStack.push(9);originalStack.push(12);
-		
-		Stack intermediateStack = new Stack(4);
-		Stack finalStack = new Stack(4);
-		
-		towerOfHanoi(originalStack, intermediateStack, finalStack);
-		addAllElementsToFinalStack(intermediateStack,finalStack);
-		
-		while(finalStack.currentSize()!=0){
-			System.out.println(finalStack.pop());
-		}
-	}
-
-	private static void towerOfHanoi(Stack originalStack, Stack intermediateStack, Stack finalStack) throws Exception {
-		if(originalStack.hasStackJustOneElement()) {
-			int num = originalStack.pop();
-			finalStack.push(num);
+public class TowerOfHanoi {	
+	public void solveTowersOfHanoi(int n, String source, String aux, String dest)
+	{
+		// If only 1 disk, make the move and return.
+		if(n==1)
+		{
+			System.out.println(source+" --> "+dest);
 			return;
 		}
-		int element = originalStack.pop();
-		towerOfHanoi(originalStack, intermediateStack, finalStack);
-		intermediateStack.push(element);
-	}
-	
-	private static void addAllElementsToFinalStack(Stack intermediateStack, Stack finalStack) throws Exception {
-		if(intermediateStack.isEmpty()) {
-			return;
-		}
-		int num = intermediateStack.pop();
-		addAllElementsToFinalStack(intermediateStack, finalStack);
-		finalStack.push(num);
+		// Move top n-1 disks from A to B using C as auxiliary.
+		solveTowersOfHanoi(n-1, source, dest, aux);
+		//Move remaining disks from A to C
+		System.out.println(source+" --> "+dest);
+		// Move n-1 disks from B to C using A as auxiliary
+		solveTowersOfHanoi(n-1, aux, source, dest);
 	}
 
+	public static void main(String args[])
+	{
+		TowerOfHanoi obj = new TowerOfHanoi();
+		System.out.println("Enter number of disks :- ");
+		Scanner scanner = new Scanner(System.in);
+		int n = scanner.nextInt();
+		scanner.close();
+		System.out.println("Move disks as below illustration.");
+		obj.solveTowersOfHanoi(n, "A", "B", "C");
+	}	
 }

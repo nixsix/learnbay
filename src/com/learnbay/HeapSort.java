@@ -31,5 +31,7 @@ public class HeapSort {
 		A[checkPointer] = A[parent];
 		A[parent] = temp;
 	}
+	
+
 
 }

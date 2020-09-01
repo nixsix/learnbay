@@ -35,7 +35,6 @@ public class DiceRollSum {
 		}
 		pushMap(i+j+k);
 		calculateDiceSum(i,j,k+1);
-		return;
 
 	}
 

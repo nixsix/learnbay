@@ -1,6 +1,5 @@
 package com.recursion;
 
-import java.util.stream.IntStream;
 
 public class CheckArrayAllIndex {
 

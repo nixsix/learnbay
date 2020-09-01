@@ -12,15 +12,11 @@ public class CheckWaveArray {
 		for(int i=1, k=inArr.length-1; i<k; i++) {
 
 			if(increasingInitially ) {
-				if(i%2 == 1 && inArr[i] > inArr[i+1]) {
+				if((i%2 == 1 && inArr[i] > inArr[i+1] )|| (i%2 == 0 && inArr[i] < inArr[i+1])) {
 					swap(inArr, i, i+1);
-				}else if (i%2 == 0 && inArr[i] < inArr[i+1]){
-					swap(inArr, i, i+1);
-				}
+				} 
 			}else {
-				if(i%2 == 0 && inArr[i] > inArr[i+1]) {
-					swap(inArr, i, i+1);
-				}else if (i%2 == 1 && inArr[i] < inArr[i+1]){
+				if((i%2 == 0 && inArr[i] > inArr[i+1])||(i%2 == 1 && inArr[i] < inArr[i+1]) ) {
 					swap(inArr, i, i+1);
 				}
 			}
