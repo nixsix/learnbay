@@ -1,13 +1,16 @@
 package com.learnbay;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class HeapGeneric<T extends Comparable> {
 	List<T> data = new ArrayList<>();
-	
+	Map<T,Integer> map =new HashMap<>();
 	public void add(T item) {
 		data.add(item);
+		map.put(item,data.size()-1);
 		upHeapify(data.size()-1);
 	}
 
@@ -27,13 +30,16 @@ public class HeapGeneric<T extends Comparable> {
 		T ith = data.get(i);
 		T jth = data.get(j); 
 		data.set(i, jth);data.set(j, ith);
+		map.put(ith, j);map.put(jth, i);
 	}
 	
 	public T remove() {
 		T rv= data.get(0);
 		swap(0,this.data.size()-1);
+		
 		data.remove(data.size()-1);
 		downHeapify(0);
+		map.remove(rv);
 		return rv;
 	}
 	
@@ -70,4 +76,10 @@ public class HeapGeneric<T extends Comparable> {
 	public void display() {System.out.println(data);}
 	public int size() {	return data.size();}
 	public boolean isEmpty() {	return data.size()<1;}
+	
+	
+	public void updatePriority(T pair) {
+		int index = map.get(pair);
+		upHeapify(index);
+	}
 }

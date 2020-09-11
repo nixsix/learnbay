@@ -8,6 +8,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import com.learnbay.HeapGeneric;
+
 import java.util.Queue;
 
 public class Graph {
@@ -109,7 +112,28 @@ public class Graph {
 	private class Pair{
 		String vname;
 		String psf;
+	}
 
+	private class PrimsPair implements Comparable<PrimsPair>{
+		String vname;
+		String acqvname;
+		int cost;
+
+		@Override
+		public int compareTo(PrimsPair o) {
+			return o.cost- this.cost;
+		}
+	}
+
+	private class DijkstraPair implements Comparable<DijkstraPair>{
+		String vname;
+		String psf;
+		int cost;
+
+		@Override
+		public int compareTo(DijkstraPair o) {
+			return o.cost- this.cost;
+		}
 	}
 
 	public boolean bfs(String src, String dst) {
@@ -376,4 +400,163 @@ public class Graph {
 		/* Tree always has n-1 edges*/
 		return !isCyclic() && isConnected();
 	}
+
+	public List<List<String>> getConnected(String src, String dst) {
+
+		List<List<String>> finalAns = new ArrayList<>();
+		/* Level Order traversal */
+		HashMap<String, Boolean> processed = new HashMap<>();
+
+		LinkedList<Pair> q = new LinkedList<>();
+		Set<String> keys = vertices.keySet();
+
+		for (String key:keys) {
+
+			if(processed.containsKey(key)) {continue;}
+
+			List<String> subAns = new ArrayList<>();
+
+			Pair sp = new Pair();
+			sp.vname = key;
+			sp.psf = key;
+			q.addLast(sp);
+			while (!q.isEmpty()) {
+				Pair rp = q.removeFirst();
+
+				if (processed.containsKey(rp.vname)) {
+					continue;
+				}
+
+				processed.put(rp.vname, true);
+
+				subAns.add(rp.vname);
+
+				Vertex rpvertex = vertices.get(rp.vname);
+				Set<String> nbrs = rpvertex.nbrs.keySet();
+
+				for (String nbr : nbrs) {
+					if (!processed.containsKey(nbr)) {
+						Pair np = new Pair();
+						np.vname = nbr;
+						np.psf = rp.psf + nbr;
+
+						q.addLast(np);
+					}
+				}
+			} 
+			finalAns.add(subAns);
+		}
+		return finalAns;
+	}
+
+	public Graph prims() {
+		Graph mst = new Graph();
+		Map<String, PrimsPair> map = new HashMap<>();
+		HeapGeneric<PrimsPair> heap = new HeapGeneric<>();
+
+		// Make a pair and put in heap and map
+		for(String key:vertices.keySet()) {
+			PrimsPair np = new PrimsPair();
+			np.vname = key;
+			np.acqvname = null;
+			np.cost =Integer.MAX_VALUE;
+
+			heap.add(np);
+			map.put(key, np);
+
+		}
+
+		while(heap.isEmpty()==false) {
+
+			//remove from top of min heap
+			PrimsPair rp = heap.remove();
+			map.remove(rp.vname);
+
+			// add to mst
+			if(rp.vname==null) {
+				mst.addVertex(rp.vname);
+			}else {
+				mst.addVertex(rp.vname);
+				mst.addEdge(rp.vname, rp.acqvname, rp.cost);
+			}
+
+			//nbrs
+			for(String nbr: vertices.get(rp.vname).nbrs.keySet()) {
+				// work for nbrs in heap
+				if(map.containsKey(nbr)) {
+					// get old cost and compare with new cost
+
+					int oc = map.get(nbr).cost;
+					int nc = vertices.get(rp.vname).nbrs.get(nbr);
+					//Update the pair if new cost is lower
+					if(nc < oc) {
+						PrimsPair gp = map.get(nbr);
+						gp.acqvname = rp.vname;
+						gp.cost = nc;
+
+						heap.updatePriority(gp);
+					}
+				}
+
+			}
+
+		}
+		return mst;
+	}
+
+	public Map<String, Integer> dijkstra(String src){
+		Map<String, Integer> ans = new HashMap<>();
+		Map<String,  DijkstraPair> map = new HashMap<>();
+		HeapGeneric< DijkstraPair> heap = new HeapGeneric<>();
+
+		// Make a pair and put in heap and map
+		for(String key:vertices.keySet()) {
+			DijkstraPair np = new DijkstraPair();
+			np.vname = key;
+			np.psf = null;
+			np.cost = Integer.MAX_VALUE;
+			if(key.equals(src)) {
+				np.cost = 0;
+				np.psf = key;
+			}
+			heap.add(np);
+			map.put(key, np);
+
+		}
+
+		while(heap.isEmpty()==false) {
+
+			//remove from top of min heap
+			DijkstraPair rp = heap.remove();
+			map.remove(rp.vname);
+			
+			// add to ans
+			ans.put(rp.vname, rp.cost);
+
+			//nbrs
+			for(String nbr: vertices.get(rp.vname).nbrs.keySet()) {
+				// work for nbrs in heap
+				if(map.containsKey(nbr)) {
+					// get old cost and compare with new cost
+
+					int oc = map.get(nbr).cost;
+					int nc = rp.cost + vertices.get(rp.vname).nbrs.get(nbr);
+					//Update the pair if new cost is lower
+					if(nc < oc) {
+						DijkstraPair gp = map.get(nbr);
+						gp.psf = rp.psf + rp.vname;
+						gp.cost = nc;
+
+						heap.updatePriority(gp);
+					}
+				}
+
+			}
+
+		}
+		return ans;
+	}
+
+
+
 }

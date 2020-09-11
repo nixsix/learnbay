@@ -52,10 +52,13 @@ public class Heap {
 	}
 
 	private int checkIndexAndFindMinimum(int ci1, int ci2, int mini) {
-		if(ci1< data.size() && data.get(ci1)<data.get(mini)) {
+		if(ci1 >= data.size()) {
+			return mini;
+		}	
+		if(data.get(ci1)<data.get(mini)) {
 			mini = ci1;
 		}
-		if(ci2 < data.size() && data.get(ci2)<data.get(mini)) {
+		if(data.get(ci2)<data.get(mini)) {
 			mini = ci2;
 		}
 		return mini;

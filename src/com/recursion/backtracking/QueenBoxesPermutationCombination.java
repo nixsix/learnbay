@@ -1,6 +1,14 @@
 package com.recursion.backtracking;
 
-public class QueenBoxesPermutationCombination {
+
+/* Boxes and queen placement permutation and combination
+ *  2 queens  in 4 boxes and can be placed in many ways
+ *  Traverse through the boxes recursively, marking the placement
+ * 
+ */
+
+
+   public class QueenBoxesPermutationCombination {
 	static int qpsf = 0;
 	static int tq =2;
 	static String ans = "";
@@ -36,9 +44,9 @@ public class QueenBoxesPermutationCombination {
 		}
 
 		for(int i=lastBoxUsed +1, k=boxesStatus.length; i<k; i++) {
-				boxesStatus[i] = true;
-				queenCombinationCall(boxesStatus, queenPointer+1, totalQueens,ans + "q" + queenPointer+ "b" + i + " ",i);
-				boxesStatus[i] = false;
+			boxesStatus[i] = true;
+			queenCombinationCall(boxesStatus, queenPointer+1, totalQueens,ans + "q" + queenPointer+ "b" + i + " ",i);
+			boxesStatus[i] = false;
 		}
 	}
 
