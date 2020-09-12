@@ -6,9 +6,8 @@ public class QueenCombinationBoxRespect2D {
 	public static void main(String... args) {
 		int qCounter = 0;
 		int row = 0;int col= 0;
-		int totalQueens = 2;
-		boolean [][] box= new boolean[50][50];
-		int x = box.length;
+		int totalQueens = 3;
+		boolean [][] box= new boolean[3][4];
 		String ans = "";
 		queenCombinationBoxRespect2D(box, row, col, qCounter, totalQueens, ans);
 	}
