@@ -8,7 +8,7 @@ public class MazePath {
 	public static void main(String[] args) {
 		//List<String> mazeResult = getMazePath(0,0,2,2);
 		//System.out.println(mazeResult);
-		printMazePath(0,0,5,5,"");
+		printMazePath(0,0,12,12,"");
 	}
 
 	private static List<String> getMazePath(int cr, int cc, int er, int ec) {

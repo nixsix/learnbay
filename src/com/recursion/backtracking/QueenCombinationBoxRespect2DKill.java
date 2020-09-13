@@ -6,8 +6,8 @@ public class QueenCombinationBoxRespect2DKill {
 	public static void main(String... args) {
 		int qCounter = 0;
 		int row = 0;int col= 0;
-		int totalQueens = 4;
-		boolean [][] box= new boolean[5][5];
+		int totalQueens = 3;
+		boolean [][] box= new boolean[3][4];
 		String ans = "";
 		queenCombinationBoxRespect2DKill(box, row, col, qCounter, totalQueens, ans);
 	}
@@ -31,7 +31,8 @@ public class QueenCombinationBoxRespect2DKill {
 		//place only if safe
 		if(isItSafeToPlaceQueen(box,row,col)) {
 			box[row][col]= true;
-			queenCombinationBoxRespect2DKill(box, row+1, 0, qCounter+1, totalQueens, ans + "{" + row + ", " + col + "}");
+			// can also make it row+1 and col =0 
+			queenCombinationBoxRespect2DKill(box, row, col+1, qCounter+1, totalQueens, ans + "{" + row + ", " + col + "}");
 			box[row][col] = false;
 		}
 		queenCombinationBoxRespect2DKill(box, row, col+1, qCounter, totalQueens, ans );
